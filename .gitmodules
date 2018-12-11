@@ -1,0 +1,3 @@
+[submodule "src/js/external/bitcore-lib"]
+	path = src/js/external/bitcore-lib
+	url = https://github.com/c0banparty/bitcore-lib-c0ban.git
