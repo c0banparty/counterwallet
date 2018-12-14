@@ -3,6 +3,88 @@
 var bitcore = require('bitcore-lib');
 var bitcoreMessage = require('bitcore-message'); // this also binds itself to bitcore.Message as soon as it's require'd
 
+bitcoreMessage.MAGIC_BYTES = bitcore.deps.Buffer('c0ban Signed Message:\n');
+
+var mainnet = {
+  hashGenesisBlock: '000000005184ffce04351e687a3965b300ee011d26b2089232cd039273be4a67',
+  port: 3881,
+  portRpc: 3882,
+  protocol: { magic: 0x6e623063 },
+  seedsDns: [ 'jp01.dnsseed.c0ban.com', 'kr01.dnsseed.c0ban.com' ],
+  versions:
+   { bip32: { private: 0x0488ade4, public: 0x0488b21e },
+     bip44: 88888, // RYO isn't registerd at BIP-44
+     private: 136,
+     public: 18,
+     scripthash: 28},
+  name: 'mainnet',
+  unit: 'RYO',
+  testnet: false,
+  alias: 'mainnet',
+  pubkeyhash: 18,
+  privatekey: 136,
+  scripthash: 28,
+  xpubkey: 0x0488b21e,
+  xprivkey: 0x0488ade4,
+  networkMagic: 1664115310,
+  dnsSeeds: [ 'jp01.dnsseed.c0ban.com', 'kr01.dnsseed.c0ban.com' ] };
+
+var testnet = {
+  hashGenesisBlock: '000000005184ffce04351e687a3965b300ee011d26b2089232cd039273be4a67',
+  port: 13881,
+  portRpc: 13882,
+  protocol: { magic: 0x8e828083 },
+  // seedsDns: [ 'testnet-dnsseed.monacoin.org' ],
+  versions:
+   { bip32: {
+        private: 0x04388388,
+        public: 0x04588788
+     },
+     bip44: 1,
+     private: 238,
+     public: 118,
+     scripthash: 198 },
+  name: 'testnet',
+  unit: 'RYO',
+  testnet: true,
+  alias: 'testnet',
+  pubkeyhash: 118,
+  privatekey: 238,
+  scripthash: 198,
+  xpubkey: 0x04588788,
+  xprivkey: 0x04388388,
+  networkMagic: 2206237326,
+  };
+
+var regtest = {
+  hashGenesisBlock: '3249e44acac8fc67e6b94e882525cea6f5a9853e1ff7b4a1d5f470b23ff8ae11',
+  port: 23881,
+  portRpc: 23882,
+  protocol: { magic: 0xdab5bffa },
+  versions:
+   { bip32: { private: 0x04358394, public: 0x043587cf },
+     bip44: 1,
+     private: 239,
+     public: 111,
+     scripthash: 196 },
+  name: 'regtest',
+  unit: 'RYO',
+  testnet: false,
+  alias: 'regtest',
+  pubkeyhash: 111,
+  privatekey: 239,
+  scripthash: 196,
+  xpubkey: 0x043587cf,
+  xprivkey: 0x04358394,
+  networkMagic: 4206867930,
+  };
+
+bitcore.Networks.remove(bitcore.Networks.testnet);
+bitcore.Networks.regtest = bitcore.Networks.add(regtest);
+bitcore.Networks.mainnet = bitcore.Networks.add(mainnet);
+bitcore.Networks.testnet = bitcore.Networks.add(testnet);
+bitcore.Networks.livenet = bitcore.Networks.mainnet;
+
 // this 'global' is overwritten by tests!
 var NETWORK = (USE_TESTNET || USE_REGTEST) ? bitcore.Networks.testnet : bitcore.Networks.livenet;
 
