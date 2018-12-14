@@ -10,8 +10,8 @@ var MAX_ADDRESSES = 20; //arbitrary (but will generate more on login if they hav
                         //additional addresses from being generated via the GUI)
 
 //Order expiration
-var ORDER_DEFAULT_EXPIRATION = 8064; //num blocks until expiration (~2 months)
-var ORDER_MAX_EXPIRATION = 8064; //max expiration for order
+var ORDER_DEFAULT_EXPIRATION = 18000; //num blocks until expiration (at ~32 sec per block this is ~6.66 days)
+var ORDER_MAX_EXPIRATION = ORDER_DEFAULT_EXPIRATION * 3; //max expiration for order
 
 var STATS_MAX_NUM_TRANSACTIONS = 100; //max # transactions to show in the table
 var VIEW_PRICES_NUM_ASSET_PAIRS = 50; //show market info for this many pairs
@@ -50,8 +50,8 @@ var SUBASSET_MAX_DISP_LENGTH = 20;
 
 var IS_MOBILE_OR_TABLET = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 var MAX_INT = Math.pow(2, 63) - 1;
-var UNIT = 100000000; //# satoshis in whole
-var MIN_FEE = 20000; // in satoshis (== .0002 BTC)
+var UNIT = 100000000; //# kobayashis in whole
+var MIN_FEE = 50000; // in kobayashis (== .0005 RYO)
 var REGULAR_DUST_SIZE = 5430;
 var MULTISIG_DUST_SIZE = 7800;
 var MIN_BALANCE_FOR_ACTION = 50000; //in satoshis ... == .0005
@@ -181,13 +181,16 @@ var BET_MATCHES_STATUS = {
 
 var LEVERAGE_UNIT = 5040;
 
-var MAINNET_UNSPENDABLE = '1CounterpartyXXXXXXXXXXXXXXXUWLpVr';
-var TESTNET_UNSPENDABLE = 'mvCounterpartyXXXXXXXXXXXXXXW24Hef';
-var REGTEST_UNSPENDABLE = 'mvCounterpartyXXXXXXXXXXXXXXW24Hef';
-var TESTNET_BURN_START = 154908;
-var TESTNET_BURN_END = 4017708;
-var REGTEST_BURN_START = 101;
-var REGTEST_BURN_END = 150000000;
+var MAINNET_UNSPENDABLE = '8cobanXXXXXXXXXXXXXXXXXXXXXXZp2eHs';
+var TESTNET_UNSPENDABLE = 'pcobanXXXXXXXXXXXXXXXXXXXXXXWJu7oL';
+var REGTEST_UNSPENDABLE = 'mcobanXXXXXXXXXXXXXXXXXXXXXXWJu7oL';
+var TESTNET_BURN_START = 1;
+var TESTNET_BURN_END = 88000000;
+var REGTEST_BURN_START = 1;
+var REGTEST_BURN_END = 88000000;
+var MAINNET_BURN_START = 1630117;
+// var MAINNET_BURN_START = 101;
+var MAINNET_BURN_END = 2697783;
 
 /***********
  * DYNAMICALLY SET
@@ -220,7 +223,7 @@ var MAX_SUPPORT_CASE_PROBLEM_LEN = 4096;
 var QUOTE_ASSETS = []; // initalized with counterblock is_ready()
 
 var QUICK_BUY_ENABLE = false;
-var BETTING_ENABLE = true;
+var BETTING_ENABLE = false;
 var GAMING_ENABLE = true;
 
 function qs(key) {
@@ -246,7 +249,8 @@ var ROLLBAR_ACCESS_TOKEN = null; //will be set in counterwallet.js
 var TRANSACTION_DELAY = 5000; // delay between transaction to avoid error -22 (vin reused)
 var TRANSACTION_MAX_RETRY = 5; // max retry when transaction failed (don't include first transaction, so 3 retry means 4 queries)
 
-var DONATION_ADDRESS = USE_TESTNET ? 'n4MGGJBkW9RjRKBbZfBAceHDndhywvVPV9' : '19U6MmLLumsqxXSBMB5FgYXbezgXYC6Gpe';
+var DONATION_ADDRESS = USE_TESTNET ? 'paf8nHJjrBAHP5vbAVtZPC6ZY1LKfeRPxN' : '8aqPSocuj9eEVV5QJGcBaYsaDeXXWoocQm';
+
 
 var APPROX_SECONDS_PER_BLOCK = USE_TESTNET ? 20 * 60 : 8 * 60; //a *rough* estimate on how many seconds per each block (used for estimating open order time left until expiration, etc)
 
@@ -254,8 +258,8 @@ var KEY_ASSET = {
   'BTC': 'RYO',
   'XCP': 'XCB',
   'USD': 'USD',
-  'Bitcoin': 'Bitcoin',
-  'Counterparty': 'Counterparty'
+  'Bitcoin': 'c0ban',
+  'Counterparty': 'c0banparty'
 };
 
 var KEY_ASSET_WEBSITE = {
