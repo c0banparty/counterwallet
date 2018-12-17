@@ -121,7 +121,6 @@ function initBalances() {
   window.ARMORY_BROADCAST_TRANSACTION = new ArmoryBroadcastTransactionModalViewModel();
 
   ko.applyBindings({}, document.getElementById("balanceHeader"));
-  ko.applyBindings({}, document.getElementById("alertBuyXcp"));
   ko.applyBindings({}, document.getElementById("gettingStartedNotice"));
   ko.applyBindings({}, document.getElementById("oldWalletDetectedNotice"));
   ko.applyBindings(CHANGE_ADDRESS_LABEL_MODAL, document.getElementById("changeAddressLabelModal"));

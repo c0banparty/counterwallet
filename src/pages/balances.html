@@ -52,12 +52,6 @@
     <a href="https://counterpartytalk.org/t/is-it-possible-to-create-list-of-addresses-and-private-keys-from-counterwallet-pass-phrase/1223" target="_blank" rel="noopener noreferrer" data-bind="locale: 'old_wallet_more_info'"></a>.
 </div>
 
-<div class="alert alert-info" id="alertBuyXcp">
-    <i class="fa-fw fa fa-exchange"></i>
-    <span data-bind="visible: !QUICK_BUY_ENABLE, locale: 'want_to_buy_xcp'"></span>
-    <span data-bind="visible: QUICK_BUY_ENABLE, locale: 'want_to_buy_xcp_with_quick_buy'"></span>
-</div>
-
 <div id="gettingStartedNotice" data-bind="fadeVisibleInOnly: WALLET.isNew() && !WALLET.isOldWallet() && window._BALANCES_HAS_LOADED_ALREADY === undefined" class="alert alert-success alert-block">
     <a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading padding-bottom-10"><span data-bind="locale: 'welcome'"></span>!</h4>
@@ -65,6 +59,8 @@
     <span data-bind="visible: USE_TESTNET, locale: 'testnet_faucet'"></span>
     <br/><br/>
     <span data-bind="locale: 'welcome_p2'"></span>
+    <br/><br/>
+    <span data-bind="locale: 'welcome_p3'"></span>
 </div>
 
 <section id="widget-grid" class="balancesContainer" data-bind="foreach: addresses"> <!-- widget grid -->
@@ -464,7 +460,7 @@
             <label class="control-label col col-sm-12" data-bind="locale: 'private_key_import'"></label>
             <div class="col col-sm-12">
                 <label class="input"><i class="icon-append fa fa-lock"></i>
-                    <input name="privateKey" data-bind="value: privateKey, valueUpdate: 'input', attr: {placeholder: 'Enter Bitcoin private key'}" type="text"/>
+                    <input name="privateKey" data-bind="value: privateKey, valueUpdate: 'input', attr: {placeholder: 'Enter c0ban private key'}" type="text"/>
                 </label>
                 <span class="invalid" data-bind="validationMessage: privateKey"></span>
                 <div class="note" data-bind="locale: 'enter_unencrypted_private_key'"></div>
@@ -502,7 +498,7 @@
             <label class="control-label col col-sm-12" data-bind="locale: 'private_key_pay_fees'"></label>
             <div class="col col-sm-12">
                 <label class="input"><i class="icon-append fa fa-lock"></i>
-                    <input name="privateKeyForFees" data-bind="value: privateKeyForFees, valueUpdate: 'input', attr: {placeholder: 'Enter Bitcoin private key'}" type="text"/>
+                    <input name="privateKeyForFees" data-bind="value: privateKeyForFees, valueUpdate: 'input', attr: {placeholder: 'Enter c0ban private key'}" type="text"/>
                 </label>
                 <span class="invalid" data-bind="validationMessage: privateKeyForFees"></span>
                 <span class="note" data-bind="text: addressForFeesBalanceMessage, visible:addressForFeesBalanceMessage()!=''"></span>
@@ -598,9 +594,6 @@
           <span data-bind="locale: 'create_xcp_testnet'"></span><br/><br/>
           <span data-bind="visible: 1 - btcAlreadyBurned() > 0">
             <b data-bind="locale: 'burn_up_to', localeArgs: maxPossibleBurn()"></b>
-          </span>
-          <span data-bind="visible: 1 - btcAlreadyBurned() <= 0">
-            <b class="errorColor"><span data-bind="locale: 'already_burned'"></span></b>
           </span>
        </p>
        <form class="smart-form" data-bind="submit: doAction"><fieldset>
