@@ -191,8 +191,7 @@ function CreateAssetModalViewModel() {
     if (resetForm) self.resetForm();
     self.xcpBalance(xcpBalance);
     self.address(address);
-    self.tokenNameType('numeric');
-    self.generateRandomId();
+    self.tokenNameType('alphabetic');
     self.shown(true);
     trackDialogShow('CreateAsset');
   }
