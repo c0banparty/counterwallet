@@ -1622,21 +1622,9 @@ function TestnetBurnModalViewModel() {
     isValidPositiveQuantity: self,
     validation: [{
       validator: function(val, self) {
-        return parseFloat(val) > 0 && parseFloat(val) <= 1;
-      },
-      message: i18n.t('quantity_must_be_between_0_and_1'),
-      params: self
-    }, {
-      validator: function(val, self) {
         return parseFloat(val) <= WALLET.getBalance(self.address(), KEY_ASSET.BTC) - normalizeQuantity(MIN_FEE);
       },
       message: i18n.t('quantity_of_exceeds_balance', KEY_ASSET.BTC),
-      params: self
-    }, {
-      validator: function(val, self) {
-        return !(parseFloat(val) > 1 - self.btcAlreadyBurned());
-      },
-      message: i18n.t('you_can_only_burn'),
       params: self
     }]
   });
@@ -1652,7 +1640,7 @@ function TestnetBurnModalViewModel() {
 
   self.maxPossibleBurn = ko.computed(function() { //normalized
     if (self.btcAlreadyBurned() === null) return null;
-    return Math.min(1 - self.btcAlreadyBurned(), WALLET.getAddressObj(self.address()).getAssetObj(KEY_ASSET.BTC).normalizedBalance())
+    return WALLET.getAddressObj(self.address()).getAssetObj(KEY_ASSET.BTC).normalizedBalance()
   }, self);
 
   self.validationModel = ko.validatedObservable({

@@ -670,7 +670,13 @@ function WalletViewModel() {
     var verifyDestAddr = data['destination'] || data['transfer_destination'] || data['feed_address'] || data['destBtcPay'] || data['source'];
     delete data['destBtcPay'];
     if (action == "create_burn") {
-      verifyDestAddr = TESTNET_UNSPENDABLE;
+      var verifyDestAddr = MAINNET_UNSPENDABLE;
+      if (USE_TESTNET) {
+          startBurn = TESTNET_UNSPENDABLE;
+      }
+      else if (USE_REGTEST) {
+          startBurn = REGTEST_UNSPENDABLE;
+      }
     } else if (action === 'create_dividend' && data['dividend_asset'] == KEY_ASSET.BTC) {
       verifyDestAddr = data['_btc_dividend_dests'];
       delete data['_btc_dividend_dests'];

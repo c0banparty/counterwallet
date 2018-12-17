@@ -71,6 +71,21 @@ function AssetViewModel(props) {
     }
   }, self);
 
+  self.allowBurn = ko.computed(function() {
+    var startBurn = MAINNET_BURN_START;
+    var endBurn = MAINNET_BURN_END;
+    if (USE_TESTNET) {
+        startBurn = TESTNET_BURN_START;
+        endBurn = TESTNET_BURN_END;
+    }
+    else if (USE_REGTEST) {
+        startBurn = REGTEST_BURN_START;
+        endBurn = REGTEST_BURN_END;
+    }
+    var height = WALLET.networkBlockHeight();
+    return self.ASSET === KEY_ASSET.BTC && startBurn <= height && height <= endBurn;
+  }, self);
+
   self.unconfirmedBalance = ko.observable(0);
   self.unconfirmedBalance.subscribe(function(value) {
     if (value == 0) {

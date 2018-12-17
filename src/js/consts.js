@@ -55,8 +55,8 @@ var MIN_FEE = 50000; // in kobayashis (== .0005 RYO)
 var REGULAR_DUST_SIZE = 5430;
 var MULTISIG_DUST_SIZE = 7800;
 var MIN_BALANCE_FOR_ACTION = 50000; //in satoshis ... == .0005
-var ASSET_CREATION_FEE_XCP = 0.5; //in normalized XCP
-var SUBASSET_CREATION_FEE_XCP = 0.25; //in normalized XCP
+var ASSET_CREATION_FEE_XCP = 88; // never used ! in normalized XCP
+var SUBASSET_CREATION_FEE_XCP = 88; //never used ! in normalized XCP
 var DIVIDEND_FEE_PER_HOLDER = 0.0002
 var MAX_ASSET_DESC_LENGTH = 41; //42, minus a null term character?
 var FEE_FRACTION_REQUIRED_DEFAULT_PCT = .9;   //0.90% of total order
