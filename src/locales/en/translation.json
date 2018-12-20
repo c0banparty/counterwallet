@@ -806,7 +806,7 @@
   "diligence_is_advised": "Warning and Disclaimer: <b>Every</b> Counterparty asset can be viewed on the \"Markets\" page. The hosts of Counterwallet.io <b>do not filter</b> very likely scam or fraudulent assets, and explicitly disclaim any responsibility therefor. Caveat emptor: do your own diligence, and do not invest more than you can afford to lose.",
   "btc_trading_off": "Trading to or from RYO is no longer possible in Counterwallet. Click <a href=\"http://support.counterparty.io/support/solutions/articles/5000500845-why-can-i-no-longer-trade-to-and-from-RYO-in-counterwallet-\" target=\"_blank\">here</a> to learn why.",
   "must_be_valid_testnet_address": "This field must be a valid TESTNET c0ban address.",
-  "must_be_valid_c0ban_address": "This field must be a valid c0ban address.",
+  "must_be_valid_bitcoin_address": "This field must be a valid c0ban address.",
   "must_be_valid_multisig_address": "This field must be a valid mulitisig address.",
   "must_be_whole_number": "The quantity entered must be a whole number, since this is a non-divisible asset.",
   "destination_equal_to_source": "Destination address cannot be equal to the source address.",
