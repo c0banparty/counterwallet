@@ -82,7 +82,7 @@ RUN npm config set strict-ssl false
 ENV PHANTOMJS_CDNURL="http://cnpmjs.org/downloads"
 RUN npm install -g bower grunt mocha-phantomjs
 RUN cd src; bower --allow-root --config.interactive=false update; cd ..
-RUN npm update
+RUN npm install
 
 RUN mkdir -p /counterwallet/src/vendors/html2canvas/build && \
     cp /counterwallet/node_modules/html2canvas/dist/html2canvas.js /counterwallet/src/vendors/html2canvas/build
