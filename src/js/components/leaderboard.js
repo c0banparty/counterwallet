@@ -222,7 +222,10 @@ AssetLeaderboardViewModel.formulateExtendedAssetInfo = function(asset, hasImage,
     var website = asset === KEY_ASSET.XCP ? KEY_ASSET_WEBSITE.XCP : KEY_ASSET_WEBSITE.BTC;
     dispAsset += '<a href="' + website + '" target="_blank" rel="noopener noreferrer">' + asset + '</a>';
   } else if (hasImage) {
-    dispAsset = '<img alt="" src="' + (USE_TESTNET ? '/_t_asset_img/' : '/_asset_img/') + asset + '.png" />&nbsp;';
+    var img_usl = '/_asset_img/';
+    if (USE_TESTNET) { img_usl = '/_t_asset_img/'; }
+    else if (USE_REGTEST) { img_usl = '/_r_asset_img/'; }
+    dispAsset = '<img alt="" src="' + img_usl + asset + '.png" />&nbsp;';
     //dispAsset += website ? ('<a href="' + website + '" target="_blank" rel="noopener noreferrer">' + asset + '</a>') : asset;
     dispAsset += asset; //keep it simple for now for avoid XSS
   }

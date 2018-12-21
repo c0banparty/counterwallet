@@ -770,7 +770,7 @@ var privateKeyValidator = function(required) {
       validator: function(val, self) {
         return (new CWPrivateKey(val)).isValid();
       },
-      message: USE_TESTNET ? i18n.t('not_valid_testnet_pk') : i18n.t('not_valid_pk'),
+      message: USE_TESTNET || USE_REGTEST ? i18n.t('not_valid_testnet_pk') : i18n.t('not_valid_pk'),
       params: self
     },
     rateLimit: {timeout: 500, method: "notifyWhenChangesStop"}

@@ -86,7 +86,9 @@ bitcore.Networks.testnet = bitcore.Networks.add(testnet);
 bitcore.Networks.livenet = bitcore.Networks.mainnet;
 
 // this 'global' is overwritten by tests!
-var NETWORK = (USE_TESTNET || USE_REGTEST) ? bitcore.Networks.testnet : bitcore.Networks.livenet;
+var NETWORK = bitcore.Networks.livenet;
+if (USE_TESTNET) NETWORK = bitcore.Networks.testnet;
+if (USE_REGTEST) NETWORK = bitcore.Networks.regtest;
 
 var CWHierarchicalKey = function(passphrase, password) {
   checkArgType(passphrase, "string");

@@ -553,19 +553,14 @@ function PayDividendModalViewModel() {
   self.assetName.subscribe(function(name) {
     if (!name) return;
     failoverAPI("get_assets_info", {'assetsList': [name]}, function(assetsData, endpoint) {
-      if (USE_TESTNET || USE_REGTEST || WALLET.networkBlockHeight() > 330000) {
-        failoverAPI('get_holder_count', {'asset': name}, function(holderData) {
-          self.assetData(assetsData[0]);
-          self.holderCount(holderData[name]);
-          var userAsset = self.addressVM().getAssetObj(name);
-          if (userAsset && userAsset.normalizedBalance() > 0) {
-            self.holderCount(self.holderCount() - 1);
-          }
-        });
-      } else {
+      failoverAPI('get_holder_count', {'asset': name}, function(holderData) {
         self.assetData(assetsData[0]);
-        self.holderCount(0);
-      }
+        self.holderCount(holderData[name]);
+        var userAsset = self.addressVM().getAssetObj(name);
+        if (userAsset && userAsset.normalizedBalance() > 0) {
+          self.holderCount(self.holderCount() - 1);
+        }
+      });
     });
   });
 
@@ -846,8 +841,12 @@ function ShowAssetInfoModalViewModel() {
         if (!ext_info)
           return; //asset has no extended info
 
-        if (ext_info['image'])
-          self.extImageURL((USE_TESTNET ? '/_t_asset_img/' : '/_asset_img/') + assetObj.ASSET + '.png');
+        if (ext_info['image']) {
+          var img_url = '/_asset_img/';
+          if (USE_TESTNET) img_url = '/_t_asset_img/';
+          else if (USE_REGTEST) img_url = '/_r_asset_img/';
+          self.extImageURL(img_url + assetObj.ASSET + '.png');
+        }
 
         self.extWebsite(ext_info['website']);
         self.extDescription(ext_info['description']);

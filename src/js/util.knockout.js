@@ -99,14 +99,14 @@ function createSharedKnockoutValidators() {
     validator: function(val, self) {
       return CWBitcore.isValidAddress(val) || CWBitcore.isValidMultisigAddress(val);
     },
-    message: USE_TESTNET ? i18n.t('must_be_valid_testnet_address') : i18n.t('must_be_valid_bitcoin_address')
+    message: USE_TESTNET || USE_REGTEST ? i18n.t('must_be_valid_testnet_address') : i18n.t('must_be_valid_bitcoin_address')
   };
 
   ko.validation.rules['isValidMonosigAddress'] = {
     validator: function(val, self) {
       return CWBitcore.isValidAddress(val);
     },
-    message: USE_TESTNET ? i18n.t('must_be_valid_testnet_address') : i18n.t('must_be_valid_bitcoin_address')
+    message: USE_TESTNET || USE_REGTEST ? i18n.t('must_be_valid_testnet_address') : i18n.t('must_be_valid_bitcoin_address')
   };
 
   ko.validation.rules['isValidBitcoinAddressIfSpecified'] = {
@@ -118,7 +118,7 @@ function createSharedKnockoutValidators() {
         return false;
       }
     },
-    message: USE_TESTNET ? i18n.t('must_be_valid_testnet_address') : i18n.t('must_be_valid_bitcoin_address')
+    message: USE_TESTNET || USE_REGTEST ? i18n.t('must_be_valid_testnet_address') : i18n.t('must_be_valid_bitcoin_address')
   };
 
   ko.validation.rules['isValidMonosigAddressIfSpecified'] = {
@@ -130,7 +130,7 @@ function createSharedKnockoutValidators() {
         return false;
       }
     },
-    message: USE_TESTNET ? i18n.t('must_be_valid_testnet_address') : i18n.t('must_be_valid_bitcoin_address')
+    message: USE_TESTNET || USE_REGTEST ? i18n.t('must_be_valid_testnet_address') : i18n.t('must_be_valid_bitcoin_address')
   };
 
   ko.validation.rules['isValidQtyForDivisibility'] = {

@@ -15,14 +15,20 @@ function cleanHtmlPrice(price) {
 
 function feedImageUrl(image_name) {
   var url = cwBaseURLs()[0];
-  url += USE_TESTNET ? '/_t_feed_img/' : '/_feed_img/';
+  var img_url = '/_feed_img/';
+  if (USE_TESTNET) {img_url = '/_t_feed_img/';}
+  else if (USE_REGTEST) {img_url = '/_r_feed_img/';}
+  url += img_url;
   url += image_name + '.png';
   return url;
 }
 
 function assetImageUrl(image_name) {
   var url = cwBaseURLs()[0];
-  url += USE_TESTNET ? '/_t_asset_img/' : '/_asset_img/';
+  var img_url = '/_asset_img/';
+  if (USE_TESTNET) {img_url = '/_t_asset_img/';}
+  else if (USE_REGTEST) {img_url = '/_r_asset_img/';}
+  url += img_url;
   url += image_name + '.png';
   return url;
 }

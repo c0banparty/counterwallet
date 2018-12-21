@@ -69,6 +69,7 @@ function LogonViewModel() {
   self.cryptedPassphrase = ko.observable(CRYPTED_PASSPHRASE);
 
   self.USE_TESTNET = USE_TESTNET;
+  self.USE_REGTEST= USE_REGTEST;
   self.IS_DEV = IS_DEV;
 
   self.sanitizedEnteredPassphrase = ko.computed(function() { //cleans whitespace and gunk off the passphrase
@@ -133,7 +134,7 @@ function LogonViewModel() {
         assert(data['caught_up'], "Invalid is_ready result"); //otherwise we should have gotten a 525 error
         assert(USE_TESTNET == data['testnet'], "USE_TESTNET is " + USE_TESTNET + " from URL-based detection, but the server API disagrees!");
 
-        $.jqlog.log("Backend is ready. Testnet status: " + USE_TESTNET + ". Last message feed index: " + data['last_message_index'] + ". CW last message seq: " + data['cw_last_message_seq']);
+        $.jqlog.log("Backend is ready. Testnet status: " + USE_TESTNET + ". Regtest status: " + USE_REGTEST + "Last message feed index: " + data['last_message_index'] + ". CW last message seq: " + data['cw_last_message_seq']);
         assert(data['last_message_index'] > 0);
 
         //User is logging in...
@@ -141,7 +142,7 @@ function LogonViewModel() {
         self.setExtraInfoOpacity(0);
 
         //generate the wallet ID from a double SHA256 hash of the passphrase and the network (if testnet)
-        var hashBase = CryptoJS.SHA256(self.sanitizedEnteredPassphrase() + (USE_TESTNET ? '_testnet' : ''));
+        var hashBase = CryptoJS.SHA256(self.sanitizedEnteredPassphrase() + (USE_TESTNET || USE_REGTEST ? '_testnet' : ''));
         var hash = CryptoJS.SHA256(hashBase).toString(CryptoJS.enc.Base64);
         //var hashBase = self.sanitizedEnteredPassphrase() + (USE_TESTNET ? '_testnet' : '');
 
@@ -168,9 +169,12 @@ function LogonViewModel() {
         QUICK_BUY_ENABLE = data['quick_buy_enable'];
 
         //Grab preferences
+        var network_name = 'mainnet';
+        if (USE_TESTNET) {network_name = 'testnet';}
+        else if (USE_REGTEST) {network_name = 'regtest';}
         multiAPINewest("get_preferences", {
           'wallet_id': WALLET.identifier(),
-          'network': (USE_TESTNET || USE_REGTEST) ? 'testnet' : 'mainnet',
+          'network': network_name,
           'for_login': true
         }, 'last_updated', self.onReceivedPreferences);
 
@@ -218,7 +222,7 @@ function LogonViewModel() {
     } else { //could not find user stored preferences
       //No server had the preferences
       $.jqlog.log("Stored preferences NOT found on server(s). Creating new...");
-      trackEvent("Login", "NewWallet", USE_TESTNET ? "Testnet" : "Mainnet");
+      trackEvent("Login", "NewWallet", USE_TESTNET || USE_REGTEST ? "Testnet" : "Mainnet");
       WALLET.isNew(true);
       //no stored preferences on any server(s) in the federation, go with the local storage preferences or default...
       if (localPref && localPref['preferences']) {
@@ -370,7 +374,7 @@ function LogonViewModel() {
 
     //record some metrics...
     trackEvent("Login", "Wallet", "Size", PREFERENCES['num_addresses_used']);
-    trackEvent("Login", "Network", USE_TESTNET ? "Testnet" : "Mainnet");
+    trackEvent("Login", "Network", USE_TESTNET || USE_REGTEST ? "Testnet" : "Mainnet");
     trackEvent("Login", "Country", USER_COUNTRY || 'UNKNOWN');
     trackEvent("Login", "Language", PREFERENCES['selected_lang']);
     trackEvent("Login", "Theme", PREFERENCES['selected_theme']);

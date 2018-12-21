@@ -183,7 +183,7 @@ var LEVERAGE_UNIT = 5040;
 
 var MAINNET_UNSPENDABLE = '8cobanXXXXXXXXXXXXXXXXXXXXXXZp2eHs';
 var TESTNET_UNSPENDABLE = 'pcobanXXXXXXXXXXXXXXXXXXXXXXWJu7oL';
-var REGTEST_UNSPENDABLE = 'mcobanXXXXXXXXXXXXXXXXXXXXXXWJu7oL';
+var REGTEST_UNSPENDABLE = 'mhs85bdvdYmbxwyreXLscm2qzAgcxmF7aH';
 var TESTNET_BURN_START = 1;
 var TESTNET_BURN_END = 9358688;
 var REGTEST_BURN_START = 1;
@@ -236,7 +236,9 @@ function qs(key) {
 // IS_DEV is enabled if the initial (root) URL access has ?dev=1
 // USE_TESTNET is enabled if the initial (root) URL access has ?testnet=1, OR the hostname visited starts with 'testnet' (e.g. testnet.myhost.com)
 var IS_DEV = (location.pathname == "/" && qs("dev") && qs("dev") != '0' ? true : false);
-var USE_REGTEST = (location.pathname == "/" && qs("regtest") && qs("regtest") != '0' ? true : false);
+var USE_REGTEST = (   (((location.pathname == "/" || location.pathname == "/src/" || location.pathname == "/build/") && qs("regtest") && qs("regtest") != '0')
+  || location.hostname.indexOf('regtest') != -1) ? true : false
+);
 var USE_TESTNET = (   (((location.pathname == "/" || location.pathname == "/src/" || location.pathname == "/build/") && qs("testnet") && qs("testnet") != '0')
   || location.hostname.indexOf('testnet') != -1) ? true : false
 );

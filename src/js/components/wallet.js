@@ -672,10 +672,10 @@ function WalletViewModel() {
     if (action == "create_burn") {
       var verifyDestAddr = MAINNET_UNSPENDABLE;
       if (USE_TESTNET) {
-          startBurn = TESTNET_UNSPENDABLE;
+          verifyDestAddr = TESTNET_UNSPENDABLE;
       }
       else if (USE_REGTEST) {
-          startBurn = REGTEST_UNSPENDABLE;
+          verifyDestAddr = REGTEST_UNSPENDABLE;
       }
     } else if (action === 'create_dividend' && data['dividend_asset'] == KEY_ASSET.BTC) {
       verifyDestAddr = data['_btc_dividend_dests'];
@@ -841,10 +841,13 @@ function WalletViewModel() {
   }
 
   self.storePreferences = function(callback, forLogin) {
+    var network_name = 'mainnet';
+    if (USE_TESTNET) {network_name = 'testnet';}
+    else if (USE_REGTEST) {network_name = 'regtest';}
     var params = {
       'wallet_id': WALLET.identifier(),
       'preferences': PREFERENCES,
-      'network': USE_TESTNET ? 'testnet' : 'mainnet',
+      'network': network_name,
       'referer': ORIG_REFERER
     };
     if (forLogin) {
