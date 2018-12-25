@@ -172,7 +172,8 @@ function AssetViewModel(props) {
                 asset: self.ASSET,
                 divisible: self.DIVISIBLE,
                 description: 'LOCK',
-                transfer_destination: null
+                transfer_destination: null,
+                locked: 1
               },
               function(txHash, data, endpoint, addressType, armoryUTx) {
                 var message = i18n.t("no_more_token_may_issued");
