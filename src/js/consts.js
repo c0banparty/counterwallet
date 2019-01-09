@@ -243,7 +243,7 @@ var USE_TESTNET = (   (((location.pathname == "/" || location.pathname == "/src/
   || location.hostname.indexOf('testnet') != -1) ? true : false
 );
 
-var BLOCKEXPLORER_URL = USE_TESTNET ? "https://testnet-insight-beta.c0ban.co/insight" : "https://insight-beta.c0ban.co/insight";
+var BLOCKEXPLORER_URL = USE_TESTNET ? "https://testnet-explorer.c0banparty.co" : "https://explorer.c0banparty.co";
 var GOOGLE_ANALYTICS_UAID = null; //will be set in counterwallet.js
 var ROLLBAR_ACCESS_TOKEN = null; //will be set in counterwallet.js
 
