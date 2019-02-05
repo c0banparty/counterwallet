@@ -15,7 +15,11 @@ PendingActionViewModel.calcText = function(category, data) {
   var pending = data['mempool'] ? 'Unconfirmed' : 'Pending';
   //The category being allowable was checked in the factory class
   if (data['source'] && data['asset']) {
-    divisible = data['divisible'] !== undefined ? data['divisible'] : (data['_asset_divisible'] !== undefined ? data['_asset_divisible'] : WALLET.getAddressObj(data['source']).getAssetObj(data['asset']).DIVISIBLE);
+    var tmpAddress = WALLET.getAddressObj(data['source']);
+    divisible = data['divisible'] !== undefined ?
+        data['divisible'] : (data['_asset_divisible'] !== undefined ?
+            data['_asset_divisible'] : tmpAddress ?
+                WALLET.getAddressObj(data['source']).getAssetObj(data['asset']).DIVISIBLE : '');
     //^ if the asset is being created, data['divisible'] should be present (or [_divisible] if coming in from message feed oftentimes),
     // otherwise, get it from an existing asset in our wallet
 
@@ -27,7 +31,7 @@ PendingActionViewModel.calcText = function(category, data) {
       if (data['_asset_longname'] !== undefined) {
         asset_longname = data['_asset_longname'];
       } else {
-        var walletAssetObj = WALLET.getAddressObj(data['source']).getAssetObj(data['asset'])
+        var walletAssetObj = tmpAddress ? tmpAddress.getAssetObj(data['asset']) : null;
         if (walletAssetObj != null) {
           asset_longname = walletAssetObj.ASSET_LONGNAME;
         } else {
