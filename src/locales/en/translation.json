@@ -837,8 +837,8 @@
   "fee_priority_details_no_wait": "Estimated wait: next block (%s Kobayashis/Byte)",
   "fee_priority_details_up_to": "Estimated wait: up to %s blocks (%s Kobayashis/Byte)",
   "fee_priority_details_between": "Estimated wait: between %s - %s blocks (%s Kobayashis/Byte)",
-  "fee_details": "Transaction fee: %s RYO ($%s JPY)",
-  "fee_details_with_btc_out": "Transaction fee: %s RYO ($%s JPY, %s fees and %s dust)",
+  "fee_details": "Transaction fee: %s RYO (%s JPY)",
+  "fee_details_with_btc_out": "Transaction fee: %s RYO (%s JPY, %s fees and %s dust)",
   "fee_details_calculating": "Transaction fee: <span class=\"processing\">calculating...</span>",
 
   "memo_type": "Memo Type",

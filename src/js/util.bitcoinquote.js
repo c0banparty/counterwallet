@@ -25,11 +25,7 @@ var CWBitcoinQuote = (function() {
   }
 
   function refreshCache(cb, fallback) {
-    var url = "https://apiv2.bitcoinaverage.com/indices/global/ticker/short?crypto=BTC&fiat=USD";
-    if (fallback) {
-      url = "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD";
-    }
-
+    var url = "https://script.google.com/macros/s/AKfycbxgpq98ZjFfmqtqb5z70HJUpnWp1vQLErFGWqh4o84jUYnPelc/exec";
     $.ajax({
       method: "GET",
       url: url,
@@ -42,14 +38,14 @@ var CWBitcoinQuote = (function() {
         }
       },
       error: function(jqxhr, textSatus, errorThrown) {
-        $.jqlog.warn('bitcoinaverage quote failed: '+textSatus+' '+errorThrown);
+        $.jqlog.warn('c0ban quote failed: '+textSatus+' '+errorThrown);
 
         if (!fallback) {
           refreshCache(cb, true)
           return;
         }
 
-        if (typeof cb == 'function') {
+       if (typeof cb == 'function') {
           cb(defaultQuote)
         }
         return
@@ -59,9 +55,9 @@ var CWBitcoinQuote = (function() {
 
   function buildQuoteFromResponse(apiResponse, fallback) {
     if (fallback) {
-      quoteCache = apiResponse.USD
+      quoteCache = apiResponse
     } else {
-      quoteCache = apiResponse.BTCUSD.last
+      quoteCache = apiResponse
     }
     $.jqlog.debug('buildQuoteFromResponse fallback='+fallback+' quoteCache '+JSON.stringify(quoteCache));
   }

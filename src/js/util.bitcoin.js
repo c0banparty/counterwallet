@@ -57,8 +57,8 @@ function smartFormat(num, truncateDecimalPlacesAtMin, truncateDecimalPlacesTo) {
 function formatFiat(num) {
   if (num === null || isNaN(num)) return '??';
 
-  return num.toFixed(2).replace(/./g, function(c, i, a) {
-      return i && c !== "." && ((a.length - i) % 3 === 0) ? ',' + c : c;
+  return num.toFixed(6).replace(/./g, function(c, i, a) {
+      return i && c !== "." && ((a.length - i) % 3 === 0) ? + c : c;
   });
 }
 
