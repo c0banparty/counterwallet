@@ -286,7 +286,7 @@ function CreateNewAddressModalViewModel() {
 
   self.dispWindowTitle = ko.computed(function() {
     var title = {
-      'normal': i18n.t('create_new_address'),
+      'normal': i18n.t('create_regular_address'),
       'watch': i18n.t('add_watch_address'),
       'armory': i18n.t('add_armory_adress'),
       'multisig': i18n.t('add_multisig_adress')
