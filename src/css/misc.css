@@ -107,9 +107,19 @@ span.modeIndicator {
 textarea.quickAccessUrl {
   margin-top: 5px;
   font-size: 12px;
+  resize: none;
   cursor:text !important;
   background-color: #FFF !important;
 }
+
+textarea.walletUrl {
+  margin-top: 5px;
+  font-size: 12px;
+  resize: none;
+  cursor:text !important;
+  background-color: #ffffff!important;
+}
+
 
 #allContentLoading {
   text-align: center;
