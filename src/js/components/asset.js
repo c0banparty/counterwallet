@@ -9,6 +9,9 @@ function AssetViewModel(props) {
   self.ASSET_DISP = _.truncate(self.ASSET_LONGNAME || self.ASSET, SUBASSET_MAX_DISP_LENGTH); // truncate if necessary
 
   self.DIVISIBLE = props['divisible'] !== undefined ? props['divisible'] : true;
+  self.LEVYTYPE = props['levy_type'] !== undefined ? props['levy_type'] : false;
+  self.LEVYASSET = props['levy_asset'] !== undefined ? props['levy_asset'] : KEY_ASSET.BTC;
+  self.LEVYNUMBER = props['levy_number'] !== undefined ? props['levy_number'] : null;
   self.owner = ko.observable(props['owner']);
   self.locked = ko.observable(props['locked'] !== undefined ? props['locked'] : false);
   self.rawBalance = ko.observable(props['rawBalance'] || (self.ASSET === KEY_ASSET.BTC ? null : 0));

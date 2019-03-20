@@ -145,6 +145,7 @@ var CWFeeModelMixin = function(modalDialogModel, opts) {
     // pre-sign the transaction
 
     var tx_data = opts.buildTransactionData();
+    if (!tx_data) return;
     WALLET.createUnsignedTransactionWithExtendedTXInfo(opts.address(), opts.action, tx_data,
       function(extendedTxInfo, offset) {
         if (offset !== _currentTransactionCallbackOffset) {

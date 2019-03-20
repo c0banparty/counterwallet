@@ -722,6 +722,28 @@
               <div class="note" data-bind="locale: 'make_divisible_note'"></div>
           </div></section>
 
+          <section data-bind="visible: tokenNameType=='subasset'">
+            <div class="row">
+              <label class="control-label col col-sm-3" data-bind="locale: 'levy_type'"></label>
+              <div class="col col-sm-9">
+                <label class="checkbox">
+                  <input name="assetLevyType" type="checkbox" data-bind="checked: levyType">
+                  <i></i><span data-bind="locale: 'make_levy'"></span>
+                </label>
+                <div class="note" data-bind="locale: 'make_levy_note'"></div>
+              </div>
+            </div>
+            <div class="row">
+              <label class="col-sm-3""></label>
+              <div class=" col col-sm-9">
+                <label class="input"><i class="icon-append fa fa-plus"></i>
+                  <input name="assetLevyQuantity" data-bind="value: levyNumber, valueUpdate: 'input'" type="text" />
+                </label>
+                <div class="note" data-bind="locale: 'levy_number_note'"></div>
+              </div>
+    	      </div>
+    	    </section>
+
           <section><!-- fee section -->
             <div class="row">
               <label class="control-label col col-sm-3" data-bind="locale: 'fee_option'"></label>
@@ -1076,6 +1098,36 @@
               </label>
               <div class="note" data-bind="locale: 'divisible_token_note'"></div>
           </div></section>
+          <section>
+            <div class="row">
+              <label class="control-label col col-sm-2" data-bind="locale: 'levy_title'"></label>
+              <div class="col col-sm-10">
+                <label class="checkbox">
+                  <input name="assetLevyType" type="checkbox" data-bind="checked: levyType" disabled="disabled">
+                  <i></i><span data-bind="locale: 'levy_type_token'"></span>
+                </label>
+                <div class="note" data-bind="locale: 'levy_type_token_note'"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col col-sm-2"></div>
+              <div class="col col-sm-10">
+                <label class="input"><i class="icon-append fa fa-info"></i>
+                  <input name="assetLevyAsset" data-bind="value: levyAsset" type="text" disabled="disabled">
+                </label>
+                <div class="note" data-bind="locale: 'levy_asset_token_note'"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col col-sm-2"></div>
+              <div class="col col-sm-10">
+                <label class="input"><i class="icon-append fa fa-plus"></i>
+                    <input name="assetLevyQuantity" data-bind="value: levyNumber" type="text" disabled="disabled"/>
+                </label>
+                <div class="note" data-bind="locale: 'levy_number_token_note'"></div>
+              </div>
+            </div>
+          </section>
         </fieldset></form>
         <table class="table table-striped table-bordered table-hover" data-bind="fadeVisibleInOnly: showHistory">
             <thead>

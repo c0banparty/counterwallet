@@ -792,37 +792,42 @@ function WalletViewModel() {
               return;
 
             } else {
-
-              WALLET.signAndBroadcastTx(address, unsignedTxHex, function(txHash, endpoint) {
-                //register this as a pending transaction
-                var category = action.replace('create_', '') + 's'; //hack
-                if (data['source'] === undefined) data['source'] = address;
-                if (action == 'create_order') {
-                  data['_give_asset_divisible'] = extra['_give_asset_divisible'];
-                  data['_get_asset_divisible'] = extra['_get_asset_divisible'];
-                  data['_give_asset_longname'] = extra['_give_asset_longname'];
-                  data['_get_asset_longname'] = extra['_get_asset_longname'];
-                } else if (action == 'create_cancel') {
-                  data['_type'] = extra['_type'];
-                  data['_tx_index'] = extra['_tx_index'];
-                } else if (action == 'create_send') {
-                  data['_asset_divisible'] = extra['_asset_divisible'];
+              failoverAPI("get_levyasset_issuer", {'asset_name': data['asset'] ? data['asset'] : ''}, function(levyIssure, endpoint) {
+                if (levyIssure) {
+                  $.jqlog.info("LEVIED. levyIssure="+levyIssure)
+                  verifyDestAddr.push(levyIssure);
                 }
-                PENDING_ACTION_FEED.add(txHash, category, data);
+                WALLET.signAndBroadcastTx(address, unsignedTxHex, function(txHash, endpoint) {
+                  //register this as a pending transaction
+                  var category = action.replace('create_', '') + 's'; //hack
+                  if (data['source'] === undefined) data['source'] = address;
+                  if (action == 'create_order') {
+                    data['_give_asset_divisible'] = extra['_give_asset_divisible'];
+                    data['_get_asset_divisible'] = extra['_get_asset_divisible'];
+                    data['_give_asset_longname'] = extra['_give_asset_longname'];
+                    data['_get_asset_longname'] = extra['_get_asset_longname'];
+                  } else if (action == 'create_cancel') {
+                    data['_type'] = extra['_type'];
+                    data['_tx_index'] = extra['_tx_index'];
+                  } else if (action == 'create_send') {
+                    data['_asset_divisible'] = extra['_asset_divisible'];
+                  }
+                  PENDING_ACTION_FEED.add(txHash, category, data);
 
-                if (action == 'create_cancel') {
-                  $('#btcancel_' + data['offer_hash']).addClass('disabled');
-                  self.cancelOrders.push(data['offer_hash']);
-                  localStorage.setObject("cancelOrders", self.cancelOrders);
-                }
+                  if (action == 'create_cancel') {
+                    $('#btcancel_' + data['offer_hash']).addClass('disabled');
+                    self.cancelOrders.push(data['offer_hash']);
+                    localStorage.setObject("cancelOrders", self.cancelOrders);
+                  }
 
-                return onSuccess ? onSuccess(txHash, data, endpoint, 'normal', null) : null;
-              }, function(jqXHR, textStatus, errorThrown) {
-                if (action == 'create_cancel') {
-                  $('#btcancel_' + data['offer_hash']).removeClass('disabled');
-                }
-                onError(jqXHR, textStatus, errorThrown);
-              }, verifyDestAddr);
+                  return onSuccess ? onSuccess(txHash, data, endpoint, 'normal', null) : null;
+                }, function(jqXHR, textStatus, errorThrown) {
+                  if (action == 'create_cancel') {
+                    $('#btcancel_' + data['offer_hash']).removeClass('disabled');
+                  }
+                  onError(jqXHR, textStatus, errorThrown);
+                }, verifyDestAddr);
+              });
             }
           });
       });

@@ -135,7 +135,7 @@ function LogonViewModel() {
         assert(USE_TESTNET == data['testnet'], "USE_TESTNET is " + USE_TESTNET + " from URL-based detection, but the server API disagrees!");
 
         $.jqlog.log("Backend is ready. Testnet status: " + USE_TESTNET + ". Regtest status: " + USE_REGTEST + "Last message feed index: " + data['last_message_index'] + ". CW last message seq: " + data['cw_last_message_seq']);
-        assert(data['last_message_index'] > 0);
+        // assert(data['last_message_index'] > 0);
 
         //User is logging in...
         self.walletGenProgressVal(0); //reset so the progress bar hides again...

@@ -50,6 +50,7 @@ var SUBASSET_MAX_DISP_LENGTH = 20;
 
 var IS_MOBILE_OR_TABLET = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 var MAX_INT = Math.pow(2, 63) - 1;
+var MAX_LEVY = 100;
 var UNIT = 100000000; //# kobayashis in whole
 var MIN_FEE = 50000; // in kobayashis (== .0005 RYO)
 var REGULAR_DUST_SIZE = 5430;

@@ -64,6 +64,10 @@ function CreateAssetModalViewModel() {
     isValidQtyForDivisibility: self
   });
 
+  self.levyType = ko.observable(false);
+  self.levyAsset = ko.observable(KEY_ASSET.BTC);
+  self.levyNumber = ko.observable(null);
+
   self.hasXCPForNamedAsset = ko.computed(function() {
     return self.xcpBalance() >= ASSET_CREATION_FEE_XCP;
   });
@@ -105,6 +109,9 @@ function CreateAssetModalViewModel() {
     self.description('');
     self.divisible(true);
     self.quantity(null);
+    self.levyType(false);
+    self.levyAsset(KEY_ASSET.BTC);
+    self.levyNumber(null);
     self.validationModel.errors.showAllMessages(false);
     self.feeController.reset();
   }
@@ -153,9 +160,25 @@ function CreateAssetModalViewModel() {
   self.buildCreateAssetTransactionData = function() {
     var quantity = parseFloat(self.quantity());
     var rawQuantity = denormalizeQuantity(quantity, self.divisible());
+    var levyNumber = self.levyNumber();
 
     if (rawQuantity > MAX_INT) {
       bootbox.alert(i18n.t("issuance_quantity_too_high"));
+      return false;
+    }
+
+    if (levyNumber > MAX_LEVY) {
+      bootbox.alert(i18n.t("issuance_levy_number_too_high"));
+      return false;
+    }
+
+    if (self.levyType() && self.divisible()) {
+      bootbox.alert(i18n.t("cannot_specify_both_divisible_levy"));
+      return false;
+    }
+
+    if (self.levyType() && !self.levyNumber() ) {
+      bootbox.alert(i18n.t("levy_number_required"));
       return false;
     }
 
@@ -169,6 +192,9 @@ function CreateAssetModalViewModel() {
       asset: name,
       quantity: rawQuantity,
       divisible: self.divisible(),
+      levy_type: self.levyType(),
+      levy_asset: self.levyAsset(),
+      levy_number: levyNumber,
       description: self.description(),
       transfer_destination: null,
       _fee_option: 'custom',
@@ -179,7 +205,7 @@ function CreateAssetModalViewModel() {
   // mix in shared fee calculation functions
   self.feeController = CWFeeModelMixin(self, {
     action: "create_issuance",
-    transactionParameters: [self.tokenNameType, self.name, self.description, self.divisible, self.quantity],
+    transactionParameters: [self.tokenNameType, self.name, self.description, self.divisible, self.quantity, self.levyType, self.levyAsset, self.levyNumber],
     validTransactionCheck: function() {
       return self.validationModel.isValid();
     },
@@ -275,6 +301,9 @@ function IssueAdditionalAssetModalViewModel() {
         quantity: self.rawAdditionalIssue(),
         asset: self.asset().ASSET,
         divisible: self.asset().DIVISIBLE,
+        levy_type: self.levyType(),
+        levy_asset: self.levyAsset(),
+        levy_number: self.levyNumber(),
         description: self.asset().description(),
         transfer_destination: null,
         _fee_option: 'custom',
@@ -362,6 +391,9 @@ function TransferAssetModalViewModel() {
         quantity: 0,
         asset: self.asset().ASSET,
         divisible: self.asset().DIVISIBLE,
+        levy_type: self.asset().LEVYTYPE,
+        levy_asset: self.asset().LEVYASSET,
+        levy_number: self.asset().LEVYNUMBER,
         description: self.asset().description(),
         transfer_destination: self.destAddress(),
         _fee_option: 'custom',
@@ -457,6 +489,9 @@ function ChangeAssetDescriptionModalViewModel() {
       quantity: 0,
       asset: self.asset().ASSET,
       divisible: self.asset().DIVISIBLE,
+      levy_type: self.asset().LEVYTYPE,
+      levy_asset: self.asset().LEVYASSET,
+      levy_number: self.asset().LEVYNUMBER,
       description: self.newDescription(),
       transfer_destination: null,
       _fee_option: 'custom',
@@ -809,6 +844,10 @@ function ShowAssetInfoModalViewModel() {
   self.totalIssued = ko.observable(null);
   self.locked = ko.observable(null);
   self.divisible = ko.observable(null);
+  self.levyType = ko.observable(null);
+  self.levyAsset = ko.observable(null);
+  self.levyNumber = ko.observable(null);
+
   self.history = ko.observableArray([]);
 
   self.extImageURL = ko.observable(null);
@@ -824,6 +863,10 @@ function ShowAssetInfoModalViewModel() {
     return self.history().length ? true : false;
   }, self);
 
+  self.dispLevyQuantity = ko.computed(function() {
+    return smartFormat(self.levyNumber());
+  }, self);
+
   self.show = function(assetObj) {
     self.address(assetObj.ADDRESS);
     self.asset(assetObj.ASSET);
@@ -833,6 +876,9 @@ function ShowAssetInfoModalViewModel() {
     self.totalIssued(assetObj.normalizedTotalIssued());
     self.locked(assetObj.locked());
     self.divisible(assetObj.DIVISIBLE);
+    self.levyType(assetObj.LEVYTYPE);
+    self.levyAsset(assetObj.LEVYASSET);
+    self.levyNumber(assetObj.LEVYNUMBER);
     self.history([]); //clear until we have the data from the API call below...
 
     //Fetch the asset history and populate the table with it
