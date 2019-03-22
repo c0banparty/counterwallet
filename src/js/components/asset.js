@@ -11,7 +11,7 @@ function AssetViewModel(props) {
   self.DIVISIBLE = props['divisible'] !== undefined ? props['divisible'] : true;
   self.LEVYTYPE = props['levy_type'] !== undefined ? props['levy_type'] : false;
   self.LEVYASSET = props['levy_asset'] !== undefined ? props['levy_asset'] : KEY_ASSET.BTC;
-  self.LEVYNUMBER = props['levy_number'] !== undefined ? props['levy_number'] : null;
+  self.levyNumber = ko.observable(props['levy_number']);
   self.levyLabel = ko.observable(props['levy_label']);
   self.owner = ko.observable(props['owner']);
   self.locked = ko.observable(props['locked'] !== undefined ? props['locked'] : false);
@@ -62,7 +62,7 @@ function AssetViewModel(props) {
   }, self);
 
   self.normalizedLevyNumber = ko.computed(function() {
-    return normalizeQuantity(self.LEVYNUMBER);
+    return normalizeQuantity(self.levyNumber());
   }, self);
 
   self.dispTotalIssued = ko.computed(function() {
