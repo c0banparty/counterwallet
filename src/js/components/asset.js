@@ -2,7 +2,7 @@ function AssetViewModel(props) {
   //An address has 2 or more assets (BTC, XCP, and any others)
   var self = this;
   self.ADDRESS = props['address']; //will not change
-  self.ASSET = props['asset']; //assetID (asset name), will not change. 
+  self.ASSET = props['asset']; //assetID (asset name), will not change.
   self.ASSET_LONGNAME = props['asset_longname']; //for subassets, this is the entire asset name (asset_longname). for everything else, this is == .ASSET
 
   self.ASSET_DISP_FULL = self.ASSET_LONGNAME || self.ASSET; //the human readable name of the asset
@@ -12,6 +12,7 @@ function AssetViewModel(props) {
   self.LEVYTYPE = props['levy_type'] !== undefined ? props['levy_type'] : false;
   self.LEVYASSET = props['levy_asset'] !== undefined ? props['levy_asset'] : KEY_ASSET.BTC;
   self.LEVYNUMBER = props['levy_number'] !== undefined ? props['levy_number'] : null;
+  self.levyLabel = ko.observable(props['levy_label']);
   self.owner = ko.observable(props['owner']);
   self.locked = ko.observable(props['locked'] !== undefined ? props['locked'] : false);
   self.rawBalance = ko.observable(props['rawBalance'] || (self.ASSET === KEY_ASSET.BTC ? null : 0));

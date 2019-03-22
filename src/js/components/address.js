@@ -163,6 +163,7 @@ function AddressViewModel(type, key, address, initialLabel, pubKeys) {
         levy_type: assetInfo['levy_type'],
         levy_asset: assetInfo['levy_asset'],
         levy_number: assetInfo['levy_number'],
+        levy_label: assetInfo['levy_label'],
         owner: assetInfo['owner'] || assetInfo['issuer'],
         locked: assetInfo['locked'],
         rawBalance: initialRawBalance,

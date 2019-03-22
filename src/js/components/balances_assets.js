@@ -67,6 +67,7 @@ function CreateAssetModalViewModel() {
   self.levyType = ko.observable(false);
   self.levyAsset = ko.observable(KEY_ASSET.BTC);
   self.levyNumber = ko.observable(null);
+  self.levyLabel = ko.observable(null);
 
   self.hasXCPForNamedAsset = ko.computed(function() {
     return self.xcpBalance() >= ASSET_CREATION_FEE_XCP;
@@ -112,6 +113,7 @@ function CreateAssetModalViewModel() {
     self.levyType(false);
     self.levyAsset(KEY_ASSET.BTC);
     self.levyNumber(null);
+    self.levyLabel(null);
     self.validationModel.errors.showAllMessages(false);
     self.feeController.reset();
   }
@@ -195,6 +197,7 @@ function CreateAssetModalViewModel() {
       levy_type: self.levyType(),
       levy_asset: self.levyAsset(),
       levy_number: rawLevyNumber,
+      levy_label: self.levyLabel(),
       description: self.description(),
       transfer_destination: null,
       _fee_option: 'custom',
@@ -205,7 +208,7 @@ function CreateAssetModalViewModel() {
   // mix in shared fee calculation functions
   self.feeController = CWFeeModelMixin(self, {
     action: "create_issuance",
-    transactionParameters: [self.tokenNameType, self.name, self.description, self.divisible, self.quantity, self.levyType, self.levyAsset, self.levyNumber],
+    transactionParameters: [self.tokenNameType, self.name, self.description, self.divisible, self.quantity, self.levyType, self.levyAsset, self.levyNumber, self.levyLabel],
     validTransactionCheck: function() {
       return self.validationModel.isValid();
     },
@@ -304,6 +307,7 @@ function IssueAdditionalAssetModalViewModel() {
         levy_type: self.levyType(),
         levy_asset: self.levyAsset(),
         levy_number: self.levyNumber(),
+        levy_label: self.levyLabel(),
         description: self.asset().description(),
         transfer_destination: null,
         _fee_option: 'custom',
@@ -394,6 +398,7 @@ function TransferAssetModalViewModel() {
         levy_type: self.asset().LEVYTYPE,
         levy_asset: self.asset().LEVYASSET,
         levy_number: self.asset().LEVYNUMBER,
+        levy_label: self.asset().levyLabel(),
         description: self.asset().description(),
         transfer_destination: self.destAddress(),
         _fee_option: 'custom',
@@ -492,6 +497,7 @@ function ChangeAssetDescriptionModalViewModel() {
       levy_type: self.asset().LEVYTYPE,
       levy_asset: self.asset().LEVYASSET,
       levy_number: self.asset().LEVYNUMBER,
+      levy_label: self.asset().levyLabel(),
       description: self.newDescription(),
       transfer_destination: null,
       _fee_option: 'custom',
@@ -847,6 +853,7 @@ function ShowAssetInfoModalViewModel() {
   self.levyType = ko.observable(null);
   self.levyAsset = ko.observable(null);
   self.levyNumber = ko.observable(null);
+  self.levyLabel = ko.observable(null);
 
   self.history = ko.observableArray([]);
 
@@ -879,6 +886,7 @@ function ShowAssetInfoModalViewModel() {
     self.levyType(assetObj.LEVYTYPE);
     self.levyAsset(assetObj.LEVYASSET);
     self.levyNumber(assetObj.normalizedLevyNumber());
+    self.levyLabel(assetObj.levyLabel());
     self.history([]); //clear until we have the data from the API call below...
 
     //Fetch the asset history and populate the table with it

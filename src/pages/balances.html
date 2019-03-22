@@ -742,6 +742,15 @@
                 <div class="note" data-bind="locale: 'levy_number_note'"></div>
               </div>
     	      </div>
+            <div class="row">
+              <label class="col-sm-3""></label>
+              <div class=" col col-sm-9">
+                <label class="input"><i class="icon-append fa fa-tag"></i>
+                  <input name="assetLevyLabel" data-bind="value: levyLabel, valueUpdate: 'input'" type="text" />
+                </label>
+                <div class="note" data-bind="locale: 'levy_label_note'"></div>
+              </div>
+    	      </div>
     	    </section>
 
           <section><!-- fee section -->
@@ -1125,6 +1134,15 @@
                     <input name="assetLevyQuantity" data-bind="value: levyNumber" type="text" disabled="disabled"/>
                 </label>
                 <div class="note" data-bind="locale: 'levy_number_token_note'"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col col-sm-2"></div>
+              <div class="col col-sm-10">
+                <label class="input"><i class="icon-append fa fa-tag"></i>
+                    <input name="assetLevyLabel" data-bind="value: levyLabel" type="text" disabled="disabled"/>
+                </label>
+                <div class="note" data-bind="locale: 'levy_label_token_note'"></div>
               </div>
             </div>
           </section>
