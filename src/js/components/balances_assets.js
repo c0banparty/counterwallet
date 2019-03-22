@@ -160,15 +160,15 @@ function CreateAssetModalViewModel() {
   self.buildCreateAssetTransactionData = function() {
     var quantity = parseFloat(self.quantity());
     var rawQuantity = denormalizeQuantity(quantity, self.divisible());
-    var levyNumber = self.levyNumber();
+    var rawLevyNumber = denormalizeQuantity(self.levyNumber());
 
     if (rawQuantity > MAX_INT) {
       bootbox.alert(i18n.t("issuance_quantity_too_high"));
       return false;
     }
 
-    if (levyNumber > MAX_LEVY) {
-      bootbox.alert(i18n.t("issuance_levy_number_too_high"));
+    if (rawLevyNumber > MAX_LEVY * UNIT) {
+      bootbox.alert(i18n.t("issuance_levy_number_too_high", MAX_LEVY));
       return false;
     }
 
@@ -194,7 +194,7 @@ function CreateAssetModalViewModel() {
       divisible: self.divisible(),
       levy_type: self.levyType(),
       levy_asset: self.levyAsset(),
-      levy_number: levyNumber,
+      levy_number: rawLevyNumber,
       description: self.description(),
       transfer_destination: null,
       _fee_option: 'custom',
@@ -878,7 +878,7 @@ function ShowAssetInfoModalViewModel() {
     self.divisible(assetObj.DIVISIBLE);
     self.levyType(assetObj.LEVYTYPE);
     self.levyAsset(assetObj.LEVYASSET);
-    self.levyNumber(assetObj.LEVYNUMBER);
+    self.levyNumber(assetObj.normalizedLevyNumber());
     self.history([]); //clear until we have the data from the API call below...
 
     //Fetch the asset history and populate the table with it

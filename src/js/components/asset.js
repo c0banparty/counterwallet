@@ -60,6 +60,10 @@ function AssetViewModel(props) {
     return normalizeQuantity(self.rawSupply(), self.DIVISIBLE);
   }, self);
 
+  self.normalizedLevyNumber = ko.computed(function() {
+    return normalizeQuantity(self.LEVYNUMBER);
+  }, self);
+
   self.dispTotalIssued = ko.computed(function() {
     return smartFormat(self.normalizedTotalIssued());
   }, self);

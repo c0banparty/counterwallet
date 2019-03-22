@@ -220,7 +220,7 @@
   "token_subname_rules": "Subasset name must be < 255 characters, may contain A-Z, a-z, 0-9, or characters .-_@! and must not end with a period",
   "free_token_name_rules": "Must start with 'A', followed by a large random number.",
   "issuance_quantity_too_high": "The quantity desired to be issued for this token is too high.",
-  "issuance_levy_number_too_high": "The levy quantity desired to be issued for this token is too high.",
+  "issuance_levy_number_too_high": "The levy quantity desired to be issued for this token is too high. Please be below <b class='notoQuantityColor'>%s</b>",
   "token_will_be_created": "Your token <b class='notoAssetColor'>%s</b> will be created.",
   "token_has_been_created": "Your token <b class='notoAssetColor'>%s</b> has been created.",
   "issuance_end_message": "It will automatically appear under the appropriate address once the network has confirmed it, and your address <b class='notoAddrColor'>%s</b> will be deducted by <b class='notoQuantityColor'>%s</b> <b class='notoAssetColor'>XCB</b>.",
