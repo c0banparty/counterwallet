@@ -855,6 +855,8 @@ function ShowAssetInfoModalViewModel() {
   self.levyNumber = ko.observable(null);
   self.levyLabel = ko.observable(null);
 
+  self.tokenType = ko.observable(null);
+
   self.history = ko.observableArray([]);
 
   self.extImageURL = ko.observable(null);
@@ -887,6 +889,7 @@ function ShowAssetInfoModalViewModel() {
     self.levyAsset(assetObj.LEVYASSET);
     self.levyNumber(assetObj.normalizedLevyNumber());
     self.levyLabel(assetObj.levyLabel());
+    self.tokenType(assetObj.LEVYTYPE == true ? 'levy' : '');
     self.history([]); //clear until we have the data from the API call below...
 
     //Fetch the asset history and populate the table with it
