@@ -25,7 +25,7 @@ var CWBitcoinQuote = (function() {
   }
 
   function refreshCache(cb, fallback) {
-    var url = "https://script.google.com/macros/s/AKfycbxgpq98ZjFfmqtqb5z70HJUpnWp1vQLErFGWqh4o84jUYnPelc/exec";
+    var url = "https://script.google.com/macros/s/AKfycbxiBUTTmNsNM2CLYfCZC8XGWGekcXYp5d1Jeq19RZaJEQ1jZYXh/exec";
     $.ajax({
       method: "GET",
       url: url,
